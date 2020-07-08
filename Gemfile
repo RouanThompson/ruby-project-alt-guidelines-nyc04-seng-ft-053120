@@ -10,9 +10,5 @@ gem "faker"
 gem "rake"
 
 gem 'tty-prompt'
-<<<<<<< HEAD
 gem 'tty-table'
 gem 'tty-spinner'
-=======
-gem 'tty-table'
->>>>>>> master
