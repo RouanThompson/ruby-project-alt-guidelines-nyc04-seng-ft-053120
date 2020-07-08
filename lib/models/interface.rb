@@ -78,6 +78,5 @@ ooo+shhhhhhhs:-.----.-/ossyyyhhhhhhhhhhy`
             /syyso:.                                           
                                                               
         "
-        return exit
     end
 end   
