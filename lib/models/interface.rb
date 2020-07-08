@@ -34,7 +34,7 @@ class Interface
         puts "Welcome to Book Club #{user.name}!"
         puts " "
         answer = prompt.select("What would you like to do?") do |menu|
-            menu.choice "Search for reviews", -> { Review.search_for_reviews }
+            menu.choice "Search for reviews", -> { Review.search_for_reviews(self) }
             menu.choice "Review a book", -> { user.make_review }
             menu.choice "Edit or delete a review", -> {}
             menu.choice "Log out", -> { self.logout }
@@ -44,7 +44,38 @@ class Interface
     def logout
         system("clear")
         puts "Thanks for visiting us! Come back soon 📚"
+        puts "
+        .     `ss+.                                           
+        yN+    /`                `--`                          
+        :+do  -+oooo+:           ..:s:                         
+          .dyyo////-./y/---`./++++/. :                         
+           -m/:::::/:.:hs+shs+////:os:        -:`              
+          `+h::::://::.+hyh/::::::-`-y+  .:+yyyN:              
+        -++od/:::/oo/::hyN/:::///::--/msdhy+.``-               
+       /++++sho/:sNNhoyhyN/+o+/:/:::-/Ny-`                     
+       o+++ososyyyddhso++yhdMdo::::::hy//.                     
+       -o+++oso+++++++++++sdmh+///+shs+//+`                    
+        .+++++ooooo+++++++++ossyyyys++++/+-                    
+ `.```````:++++++ohdysssooooooooossoo+++++`                    
+ -yo-`......o++++++shhhhhhsoooo+++++++++:`                     
+ -hhys:````.+++++++++++++++++++++o+++:.`                       
+ -hhhhhs/`  `/++++++++++++++++++/--.                           
+:oyhhhhhhy/` `/++++++++/::------......                         
+y++shhhhhhhs` .++++/-..` ``....------//-`                      
+ooo+shhhhhhhs:-.----.-/ossyyyhhhhhhhhhhy`                      
+`/ysohhhhhhhdys+//+shhhhhhhhhhhhhhhhhhy.                       
+ `dhhhhhhhhhdhhhhhhhdhhhhhhhhhhhhhhhhho`                       
+  hhhhhhhhhhdhhhhhhhhhhhhhhhhhhhhhhyysy+/:.``                  
+  hhhhhhhhhhhosyyysyhhhhhhhhhhhhyo+++oy+++o++///////:::.`      
+  yhhhhhhhhhh++++++yhhhhhhhhhhhhoooosso++++++++++++++++o+/.    
+  shhhhhhhhhdyssssyhhhhhhhhhhhhhhhhys+++++++++++++++++++++o/   
+  +yhhhhhhhhdhhhhhhhhhhhhhhhhhhhhhhsooooooo+oooooooooooooo+++  
+   ./syhhhhhdhhhhhhhhhhhhhhhhhhhhhhooooooooooooooooooooooooos  
+      -oyhhhdhhhhhdhhhhhhhhhhhhhyy+/osooooooooso/:-...--:+oo+  
+        .+hhdhhhhhdhhhhhyhyso/:--.    ..---..`                 
+          .odhhhhhhhys+:-`                                     
+            /syyso:.                                           
+                                                              
+        "
     end
-
-
 end   
