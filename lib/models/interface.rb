@@ -37,7 +37,7 @@ class Interface
             menu.choice "Search for reviews", -> { Review.search_for_reviews(self) }
             menu.choice "Review a book", -> { user.make_review }
             menu.choice "View my reviews", -> {user.my_reviews}
-            menu.choice "Log out", -> { self.logout }
+            menu.choice "Log out", -> {logout}
             #pass in (self)
         end
     end
@@ -78,5 +78,6 @@ ooo+shhhhhhhs:-.----.-/ossyyyhhhhhhhhhhy`
             /syyso:.                                           
                                                               
         "
+        return exit
     end
 end   
