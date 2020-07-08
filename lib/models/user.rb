@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
         user_reviews = User.find_by(id: self.id).reviews
         if user_reviews == []
             puts "You have no reviews, how sad"
-            self.main_menu
+            return exit #self.main_menu
         end
         i = 0
         num = []
