@@ -5,15 +5,18 @@ class User < ActiveRecord::Base
     #master
     def self.try_again
         prompt = TTY::Prompt.new
+        puts " "
         if prompt.select("Would you like to try again?", %w(Yes No)) == "No"
+            puts " "
             puts "-------Exiting app--------"
+            puts " "
             exit
         end
     end 
 
     def self.create_new_user
         prompt = TTY::Prompt.new
-        puts "------------------\nLets get to know you better"
+        puts "----------------------------\nLets get to know you better"
         input = prompt.collect do
             key(:name).ask("What is your name?:")
             key(:age).ask("How old are you?:")
@@ -21,7 +24,7 @@ class User < ActiveRecord::Base
         end
         #loops until it does not find a match
         until !User.find_by(display_name: input[:display_name])
-            puts "\nSorry #{input[:name]}, that display name has been taken"
+            puts "\nSorry #{input[:name]}, that display name has been taken".colorize(:color => :cyan, :background => :default)
             self.try_again
             input[:display_name] = prompt.ask("Create a display name:")
         end
@@ -32,10 +35,21 @@ class User < ActiveRecord::Base
     def self.logging_someone_in
         prompt = TTY::Prompt.new
         display_name = prompt.ask("Insert your display name:")
+        #loading animation
+        spinner = TTY::Spinner.new("[:spinner] Loading ...".colorize(:color => :light_blue, :background => :light_white), format: :pulse_2)
+        spinner.auto_spin # Automatic animation with default interval
+        sleep(2) # Perform task
+        spinner.stop('Done!'.colorize(:color => :cyan, :background => :light_white)) # Stop animation
+       
         until found_user = User.find_by(display_name: display_name)
-            puts "\nDisplay name does not exist"
+            puts "\nDisplay name does not exist".colorize(:color => :cyan, :background => :default)
             self.try_again
             display_name = prompt.ask("What is your a display name:")
+            #loading animation
+        spinner = TTY::Spinner.new("[:spinner] Loading ...".colorize(:color => :light_blue, :background => :light_white), format: :pulse_2)
+        spinner.auto_spin # Automatic animation with default interval
+        sleep(2) # Perform task
+        spinner.stop('Done!'.colorize(:color => :light_blue, :background => :light_white)) # Stop animation
         end
         found_user
     end
@@ -44,12 +58,12 @@ class User < ActiveRecord::Base
         prompt = TTY::Prompt.new
         input = prompt.collect do
             puts "\nBook Review"
-            key(:title).ask("Enter Title of book:")
-            key(:author).ask("Enter the Author's name:")
-            key(:genre).ask("What is the genre of the book:")
-            key(:comment).ask("Go ahead review away:")
-            key(:rating).ask("On a scale of 1 - 10 how would rate the book?")
-            key(:recommend).select("Do you recommend this book?", %w(Yes No))
+            key(:title).ask("Enter Title of book:".colorize(:color => :cyan, :background => :default))
+            key(:author).ask("Enter the Author's name:".colorize(:color => :cyan, :background => :default))
+            key(:genre).ask("What is the genre of the book:".colorize(:color => :cyan, :background => :default))
+            key(:comment).ask("Go ahead review away:".colorize(:color => :cyan, :background => :default))
+            key(:rating).ask("On a scale of 1 - 10 how would rate the book?".colorize(:color => :cyan, :background => :default))
+            key(:recommend).select("Do you recommend this book?".colorize(:color => :cyan, :background => :default), %w(Yes No))
         end
 
         Review.create(
@@ -74,15 +88,16 @@ class User < ActiveRecord::Base
 
     def delete_review(user_review)
         user_review.destroy
-        puts "Your review is lost to the ether..."
-    end
+        puts " "
+        puts "Your review is lost to the ether...".colorize(:color => :light_yellow, :background => :red)
+    end   
     
     def edit(user_reviews, num)
         prompt = TTY::Prompt.new
-        choice = prompt.select("Choose a No. of the review you want to view", num)
+        choice = prompt.select("Choose a No. of the review you want to modify", num)
         user_reviews[choice -= 1] 
 
-        edit_or_delete = prompt.select("do want to Edit or Delete this review?", %w(edit delete))
+        edit_or_delete = prompt.select("Do want to Edit or Delete this review?", %w(edit delete))
 
         if edit_or_delete == "delete"
             delete_review(user_reviews[choice])
@@ -105,7 +120,7 @@ class User < ActiveRecord::Base
         prompt = TTY::Prompt.new
         user_reviews = User.find_by(id: self.id).reviews
         if user_reviews == []
-            puts "You have no reviews, how sad"
+            puts "You have no reviews, how sad 🙁".colorize(:color => :cyan, :background => :default)
             return exit #self.main_menu
         end
         i = 0
@@ -122,9 +137,8 @@ class User < ActiveRecord::Base
 
     def print_table(array_to_print)
         prompt = TTY::Prompt.new
-        reviews_table = TTY::Table.new ["No. ", "Title", "Auththor", "Genre", "Comment", "Rating"], [[],[]], array_to_print
+        reviews_table = TTY::Table.new ["No. ", "Title", "Author", "Genre", "Comment", "Rating"], [[],[]], array_to_print
         puts reviews_table.render(:unicode, alignments: [:center, :center], padding: [0,1,0,1])
     end
 
-    
 end
