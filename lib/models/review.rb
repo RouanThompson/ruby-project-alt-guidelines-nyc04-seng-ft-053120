@@ -25,6 +25,7 @@ class Review < ActiveRecord::Base
 
     def self.get_book_reviews(book_instance, interface_instance)
         book_id = book_instance.id
+        prompt = TTY::Prompt.new
         #loading animation
         spinner = TTY::Spinner.new("[:spinner] Getting reviews ...", format: :pulse_2)
         spinner.auto_spin # Automatic animation with default interval
@@ -41,8 +42,13 @@ class Review < ActiveRecord::Base
                     [rev.user.name, rev.comment, rev.rating]
                     }
         self.reviews_table(values_to_print)
-        #add a promtp to bring back main menu
-        #interface_instance.main_menu
+        puts " "
+        response = prompt.select("Would you like to search for another book or go back to main menu??", %w(search menu))
+        if response == "menu"
+            interface_instance.main_menu
+        else
+            self.search_for_reviews(interface_instance)
+        end
     end 
    
     def self.reviews_table(array_to_print)
