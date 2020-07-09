@@ -117,11 +117,10 @@ class User < ActiveRecord::Base
 
     def my_reviews(interface)
         prompt = TTY::Prompt.new
-
-        #if we change to class methods, change self.id 
         user_reviews = User.find_by(id: self.id).reviews
         if user_reviews == []
             puts "You have no reviews, how sad 🙁".colorize(:color => :light_blue, :background => :default)
+            puts " "
             back_to_main(interface)
         end
         
