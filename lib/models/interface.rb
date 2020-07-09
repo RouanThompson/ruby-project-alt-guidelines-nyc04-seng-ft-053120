@@ -11,21 +11,22 @@ class Interface
         puts " "
         
         puts "
-               ██     ██ ███████ ██       ██████  ██████  ███    ███ ███████             
-               ██     ██ ██      ██      ██      ██    ██ ████  ████ ██                  
-               ██  █  ██ █████   ██      ██      ██    ██ ██ ████ ██ █████               
-               ██ ███ ██ ██      ██      ██      ██    ██ ██  ██  ██ ██                  
-                ███ ███  ███████ ███████  ██████  ██████  ██      ██ ███████             
-                                                                                         ".colorize(:color => :yellow, :background => :light_white)
+✨                                                                                          ✨
+                ██     ██ ███████ ██       ██████  ██████  ███    ███ ███████                 
+                ██     ██ ██      ██      ██      ██    ██ ████  ████ ██                      
+                ██  █  ██ █████   ██      ██      ██    ██ ██ ████ ██ █████                   
+                ██ ███ ██ ██      ██      ██      ██    ██ ██  ██  ██ ██                      
+                 ███ ███  ███████ ███████  ██████  ██████  ██      ██ ███████                 
+✨                                                                                          ✨".colorize(:color => :yellow, :background => :light_white)
          books_image
     end
 
     def choose_login_or_register
         puts " "
         prompt.select("Log in or register?") do |menu|
-            menu.choice "Log In".colorize(:color => :cyan, :background => :default), -> { User.logging_someone_in(self) }
-            menu.choice "Register".colorize(:color => :cyan, :background => :default), -> { User.create_new_user(self) }
-            menu.choice "Logout".colorize(:color => :cyan, :background => :default), -> {self.logout}
+            menu.choice "Log In".colorize(:color => :light_blue, :background => :default), -> { User.logging_someone_in(self) }
+            menu.choice "Register".colorize(:color => :light_blue, :background => :default), -> { User.create_new_user(self) }
+            menu.choice "Logout".colorize(:color => :light_blue, :background => :default), -> {self.logout}
         end
     end
 
@@ -33,13 +34,13 @@ class Interface
         system("clear")
         books_image
         puts " "
-        puts "                             ✨ Welcome to Book Club #{user.name}! ✨"
+        puts "                              ✨ Welcome to Book Club #{user.name}! ✨"
         puts " "
         answer = prompt.select("What would you like to do?") do |menu|
-            menu.choice "Search for reviews".colorize(:color => :cyan, :background => :default), -> { Review.search_for_reviews(self) }
-            menu.choice "Review a book".colorize(:color => :cyan, :background => :default), -> { user.make_review(self)}
-            menu.choice "View my reviews".colorize(:color => :cyan, :background => :default), -> {user.my_reviews(self)}
-            menu.choice "Log out".colorize(:color => :cyan, :background => :default), -> { self.logout }
+            menu.choice "Search for reviews".colorize(:color => :light_blue, :background => :default), -> { Review.search_for_reviews(self) }
+            menu.choice "Review a book".colorize(:color => :light_blue, :background => :default), -> { user.make_review(self)}
+            menu.choice "View my reviews".colorize(:color => :light_blue, :background => :default), -> {user.my_reviews(self)}
+            menu.choice "Log out".colorize(:color => :light_blue, :background => :default), -> { self.logout }
             #pass in (self)
         end
     end
@@ -48,21 +49,21 @@ class Interface
         system("clear")
         puts " "
         puts "
-    📚  ┌─┐┌─┐┌┬┐┌─┐  ┌┐ ┌─┐┌─┐┬┌─  ┌─┐┌─┐┌─┐┌┐┌  📚
-    📖  │  │ ││││├┤   ├┴┐├─┤│  ├┴┐  └─┐│ ││ ││││  📖
-    📚  └─┘└─┘┴ ┴└─┘  └─┘┴ ┴└─┘┴ ┴  └─┘└─┘└─┘┘└┘  📚".colorize(:color => :yellow, :background => :light_white)
+          📚  ┌─┐┌─┐┌┬┐┌─┐  ┌┐ ┌─┐┌─┐┬┌─  ┌─┐┌─┐┌─┐┌┐┌   📚         
+          📖  │  │ ││││├┤   ├┴┐├─┤│  ├┴┐  └─┐│ ││ ││││   📖         
+          📚  └─┘└─┘┴ ┴└─┘  └─┘┴ ┴└─┘┴ ┴  └─┘└─┘└─┘┘└┘   📚         ".colorize(:color => :yellow, :background => :light_white)
         
                                                   
         puts " "                                        
         puts "                                                                                                           
-            ,..........   ..........,
-        ,..,'          '.'          ',..,
-       ,' ,'            :            ', ',
-      ,' ,'             :             ', ',
-     ,' ,'              :              ', ',
-    ,' ,'............., : ,.............', ',
-   ,'  '............   '.'   ............'  ',
-    '''''''''''''''''';''';''''''''''''''''''                               
+                    ,..........   ..........,
+                ,..,'          '.'          ',..,
+               ,' ,'            :            ', ',
+              ,' ,'             :             ', ',
+             ,' ,'              :              ', ',
+            ,' ,'............., : ,.............', ',
+           ,'  '............   '.'   ............'  ',
+            '''''''''''''''''';''';''''''''''''''''''                               
                                                  ".colorize(:color => :light_green, :background => :default)
         return exit
     end

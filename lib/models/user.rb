@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
         end
         #loops until it does not find a match
         until !User.find_by(display_name: input[:display_name])
-            puts "\nSorry #{input[:name]}, that display name has been taken".colorize(:color => :cyan, :background => :default)
+            puts "\nSorry #{input[:name]}, that display name has been taken".colorize(:color => :light_blue, :background => :default)
             self.try_again(interface)
             input[:display_name] = prompt.ask("Create a display name:")
         end
@@ -33,15 +33,15 @@ class User < ActiveRecord::Base
         prompt = TTY::Prompt.new
         display_name = prompt.ask("Insert your display name:")
         #loading animation
-        spinner = TTY::Spinner.new("[:spinner] Loading ...".colorize(:color => :light_blue, :background => :light_white), format: :pulse_2)
+        spinner = TTY::Spinner.new("[:spinner] Loading ...".colorize(:color => :light_green, :background => :light_white), format: :pulse_2)
         spinner.auto_spin # Automatic animation with default interval
         sleep(2) # Perform task
-        spinner.stop('Done!'.colorize(:color => :cyan, :background => :light_white)) # Stop animation
+        spinner.stop('Done!'.colorize(:color => :light_green, :background => :light_white)) # Stop animation
        
         if found_user = User.find_by(display_name: display_name)
             found_user
         else
-            puts "\nDisplay name does not exist".colorize(:color => :cyan, :background => :default)
+            puts "\nDisplay name does not exist".colorize(:color => :light_blue, :background => :default)
             interface.choose_login_or_register
         end
     end
@@ -50,12 +50,12 @@ class User < ActiveRecord::Base
         prompt = TTY::Prompt.new
         input = prompt.collect do
             puts "\nBook Review"
-            key(:title).ask("Enter Title of book:".colorize(:color => :cyan, :background => :default))
-            key(:author).ask("Enter the Author's name:".colorize(:color => :cyan, :background => :default))
-            key(:genre).ask("What is the genre of the book:".colorize(:color => :cyan, :background => :default))
-            key(:comment).ask("Go ahead review away:".colorize(:color => :cyan, :background => :default))
-            key(:rating).ask("On a scale of 1 - 10 how would rate the book?".colorize(:color => :cyan, :background => :default))
-            key(:recommend).select("Do you recommend this book?".colorize(:color => :cyan, :background => :default), %w(Yes No))
+            key(:title).ask("Enter Title of book:".colorize(:color => :light_blue, :background => :default))
+            key(:author).ask("Enter the Author's name:".colorize(:color => :light_blue, :background => :default))
+            key(:genre).ask("What is the genre of the book:".colorize(:color => :light_blue, :background => :default))
+            key(:comment).ask("Go ahead review away:".colorize(:color => :light_blue, :background => :default))
+            key(:rating).ask("On a scale of 1 - 10 how would rate the book?".colorize(:color => :light_blue, :background => :default))
+            key(:recommend).select("Do you recommend this book?".colorize(:color => :light_blue, :background => :default), %w(Yes No))
         end
 
         Review.create(
@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
         #if we change to class methods, change self.id 
         user_reviews = User.find_by(id: self.id).reviews
         if user_reviews == []
-            puts "You have no reviews, how sad 🙁".colorize(:color => :cyan, :background => :default)
+            puts "You have no reviews, how sad 🙁".colorize(:color => :light_blue, :background => :default)
             back_to_main(interface)
         end
         
@@ -135,8 +135,8 @@ class User < ActiveRecord::Base
 
         print_table(array_to_print)
         answer = prompt.select("What would you like to do?") do |menu|
-            menu.choice "Edit".colorize(:color => :cyan, :background => :default), -> {edit(user_reviews, num, interface)}
-            menu.choice "Main menu".colorize(:color => :cyan, :background => :default), -> {interface.main_menu}
+            menu.choice "Edit".colorize(:color => :light_blue, :background => :default), -> {edit(user_reviews, num, interface)}
+            menu.choice "Main menu".colorize(:color => :light_blue, :background => :default), -> {interface.main_menu}
         end
     end
 
