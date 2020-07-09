@@ -37,8 +37,8 @@ class Interface
         puts " "
         answer = prompt.select("What would you like to do?") do |menu|
             menu.choice "Search for reviews".colorize(:color => :cyan, :background => :default), -> { Review.search_for_reviews(self) }
-            menu.choice "Review a book".colorize(:color => :cyan, :background => :default), -> { user.make_review }
-            menu.choice "View my reviews".colorize(:color => :cyan, :background => :default), -> {user.my_reviews}
+            menu.choice "Review a book".colorize(:color => :cyan, :background => :default), -> { user.make_review(self)}
+            menu.choice "View my reviews".colorize(:color => :cyan, :background => :default), -> {user.my_reviews(self)}
             menu.choice "Log out".colorize(:color => :cyan, :background => :default), -> { self.logout }
             #pass in (self)
         end
@@ -81,6 +81,7 @@ ooo+shhhhhhhs:-.----.-/ossyyyhhhhhhhhhhy`
                                                               
         ".colorize(:color => :green, :background => :default)
 #:green on :default 
-        #ColorizedString.color_samples 
+        #ColorizedString.color_samples
+        return exit
     end
 end    
