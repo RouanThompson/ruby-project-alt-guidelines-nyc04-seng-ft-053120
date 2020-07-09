@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
     def my_reviews
         prompt = TTY::Prompt.new
         user_reviews = User.find_by(id: self.id).reviews
-        if user_reviews == []
+        if user_reviews == [] || user_reviews == nil
             puts "You have no reviews, how sad"
             return exit #self.main_menu
         end
