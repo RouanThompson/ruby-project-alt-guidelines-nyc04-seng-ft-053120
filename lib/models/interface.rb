@@ -44,6 +44,11 @@ class Interface
         end
     end
 
+    # def back_to_menu
+    #     user.my_reviews
+    #     main_menu
+    # end
+
     def logout
         system("clear")
         puts "Thanks for visiting us! Come back soon 📚"

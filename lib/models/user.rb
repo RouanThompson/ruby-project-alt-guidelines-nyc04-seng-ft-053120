@@ -91,6 +91,7 @@ class User < ActiveRecord::Base
         user_review.destroy
         puts " "
         puts "Your review is lost to the ether...".colorize(:color => :light_yellow, :background => :red)
+        my_reviews 
     end   
     
     def edit(user_reviews, num)
@@ -119,10 +120,13 @@ class User < ActiveRecord::Base
 
     def my_reviews
         prompt = TTY::Prompt.new
+
+        #if we change to class methods, change self.id 
         user_reviews = User.find_by(id: self.id).reviews
         if user_reviews == []
             puts "You have no reviews, how sad 🙁".colorize(:color => :cyan, :background => :default)
-            return exit #self.main_menu
+            
+            # return exit #self.main_menu
         end
         i = 0
         num = []
