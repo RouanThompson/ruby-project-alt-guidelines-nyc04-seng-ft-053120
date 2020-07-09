@@ -16,7 +16,7 @@ class Review < ActiveRecord::Base
             prompt = TTY::Prompt.new
             response = prompt.select("Be the first to create a review for it!", %w(Yes No))
             if response == "Yes"
-                user.make_review 
+                #user.make_review 
             else 
                 interface_instance.main_menu
             end
