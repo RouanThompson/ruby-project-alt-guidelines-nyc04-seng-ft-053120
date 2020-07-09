@@ -8,18 +8,16 @@ class Interface
     end
 
     def welcome
+        puts " "
+        
         puts "
-
-       .--.           .---.        .-.
-   .---|--|   .-.     | B |  .---. |~|    .--.
-.--|===|We|---|_|--.__| O |--|:::| |~|-==-|==|---.
-|%%|HI!|lc|===| |~~|To| O |--|   |_|~|CLUB|BY|___|-.📚
-|  |   |om|===| |==|  | K |  |:::|=| |    |::|---|=|📚
-|  |   |e~|   |_|__|  |   |__|   | | |    |RK|___| |📚
-|~~|===|--|===|~|~~|%%|~~~|--|:::|=|~|----|==|---|=|📚
-^--^---'--^---^-^--^--^---'--^---^-^-^-==-^--^---^-'📚
-
-"
+               ██     ██ ███████ ██       ██████  ██████  ███    ███ ███████             
+               ██     ██ ██      ██      ██      ██    ██ ████  ████ ██                  
+               ██  █  ██ █████   ██      ██      ██    ██ ██ ████ ██ █████               
+               ██ ███ ██ ██      ██      ██      ██    ██ ██  ██  ██ ██                  
+                ███ ███  ███████ ███████  ██████  ██████  ██      ██ ███████             
+                                                                                         ".colorize(:color => :yellow, :background => :light_white)
+         books_image
     end
 
     def choose_login_or_register
@@ -29,11 +27,12 @@ class Interface
             menu.choice "Register".colorize(:color => :cyan, :background => :default), -> { User.create_new_user }
         end
     end
-    #::cyan on :default
-    #puts "This is light blue with red background".colorize(:color => :light_blue, :background => :red)
+
     def main_menu
         system("clear")
-        puts "Welcome to Book Club #{user.name}!"
+        books_image
+        puts " "
+        puts "                             ✨ Welcome to Book Club #{user.name}! ✨"
         puts " "
         answer = prompt.select("What would you like to do?") do |menu|
             menu.choice "Search for reviews".colorize(:color => :cyan, :background => :default), -> { Review.search_for_reviews(self) }
@@ -44,49 +43,38 @@ class Interface
         end
     end
 
-    # def back_to_menu
-    #     user.my_reviews
-    #     main_menu
-    # end
-
     def logout
         system("clear")
-        puts "Thanks for visiting us! Come back soon 📚"
+        puts " "
         puts "
-        .     `ss+.                                           
-        yN+    /`                `--`                          
-        :+do  -+oooo+:           ..:s:                         
-          .dyyo////-./y/---`./++++/. :                         
-           -m/:::::/:.:hs+shs+////:os:        -:`              
-          `+h::::://::.+hyh/::::::-`-y+  .:+yyyN:              
-        -++od/:::/oo/::hyN/:::///::--/msdhy+.``-               
-       /++++sho/:sNNhoyhyN/+o+/:/:::-/Ny-`                     
-       o+++ososyyyddhso++yhdMdo::::::hy//.                     
-       -o+++oso+++++++++++sdmh+///+shs+//+`                    
-        .+++++ooooo+++++++++ossyyyys++++/+-                    
- `.```````:++++++ohdysssooooooooossoo+++++`                    
- -yo-`......o++++++shhhhhhsoooo+++++++++:`                     
- -hhys:````.+++++++++++++++++++++o+++:.`                       
- -hhhhhs/`  `/++++++++++++++++++/--.                           
-:oyhhhhhhy/` `/++++++++/::------......                         
-y++shhhhhhhs` .++++/-..` ``....------//-`                      
-ooo+shhhhhhhs:-.----.-/ossyyyhhhhhhhhhhy`                      
-`/ysohhhhhhhdys+//+shhhhhhhhhhhhhhhhhhy.                       
- `dhhhhhhhhhdhhhhhhhdhhhhhhhhhhhhhhhhho`                       
-  hhhhhhhhhhdhhhhhhhhhhhhhhhhhhhhhhyysy+/:.``                  
-  hhhhhhhhhhhosyyysyhhhhhhhhhhhhyo+++oy+++o++///////:::.`      
-  yhhhhhhhhhh++++++yhhhhhhhhhhhhoooosso++++++++++++++++o+/.    
-  shhhhhhhhhdyssssyhhhhhhhhhhhhhhhhys+++++++++++++++++++++o/   
-  +yhhhhhhhhdhhhhhhhhhhhhhhhhhhhhhhsooooooo+oooooooooooooo+++  
-   ./syhhhhhdhhhhhhhhhhhhhhhhhhhhhhooooooooooooooooooooooooos  
-      -oyhhhdhhhhhdhhhhhhhhhhhhhyy+/osooooooooso/:-...--:+oo+  
-        .+hhdhhhhhdhhhhhyhyso/:--.    ..---..`                 
-          .odhhhhhhhys+:-`                                     
-            /syyso:.                                           
-                                                              
-        ".colorize(:color => :green, :background => :default)
-#:green on :default 
-        #ColorizedString.color_samples
+    📚  ┌─┐┌─┐┌┬┐┌─┐  ┌┐ ┌─┐┌─┐┬┌─  ┌─┐┌─┐┌─┐┌┐┌  📚
+    📖  │  │ ││││├┤   ├┴┐├─┤│  ├┴┐  └─┐│ ││ ││││  📖
+    📚  └─┘└─┘┴ ┴└─┘  └─┘┴ ┴└─┘┴ ┴  └─┘└─┘└─┘┘└┘  📚".colorize(:color => :yellow, :background => :light_white)
+        
+                                                  
+        puts " "                                        
+        puts "                                                                                                           
+            ,..........   ..........,
+        ,..,'          '.'          ',..,
+       ,' ,'            :            ', ',
+      ,' ,'             :             ', ',
+     ,' ,'              :              ', ',
+    ,' ,'............., : ,.............', ',
+   ,'  '............   '.'   ............'  ',
+    '''''''''''''''''';''';''''''''''''''''''                               
+                                                 ".colorize(:color => :light_green, :background => :default)
         return exit
+    end
+
+    def books_image
+        puts "                                                         
+                           .--.           .---.        .-.
+                       .---|--|   .-.     | B |  .---. |~|    .--.
+                    .--|===|We|---|_|--.__| O |--|:::| |~|-==-|==|---.
+                    |%%|HI!|lc|===| |~~|To| O |--|   |_|~|CLUB|BY|___|-.📚
+                    |  |   |om|===| |==|  | K |  |:::|=| |    |::|---|=|📚
+                    |  |   |e~|   |_|__|  |   |__|   | | |    |RK|___| |📚
+                    |~~|===|--|===|~|~~|%%|~~~|--|:::|=|~|----|==|---|=|📚
+                  🐛^--^---'--^---^-^--^--^---'--^---^-^-^-==-^--^---^-'📚"
     end
 end    

@@ -2,10 +2,11 @@ class Review < ActiveRecord::Base
     belongs_to :user
     belongs_to :book
 
-
     def self.search_for_reviews(interface_instance)
         system "clear"
         prompt = TTY::Prompt.new
+        puts " "
+        interface_instance.books_image
         puts " "
         answer = prompt.ask("Enter the book title:")
         book_instance = Book.all.find_by(title: answer)
@@ -43,8 +44,8 @@ class Review < ActiveRecord::Base
                     }
         self.reviews_table(values_to_print)
         puts " "
-        response = prompt.select("Would you like to search for another book or go back to main menu??", %w(search menu))
-        if response == "menu"
+        response = prompt.select("Would you like to search for another book or go back to main menu??", %w(Search Menu))
+        if response == "Menu"
             interface_instance.main_menu
         else
             self.search_for_reviews(interface_instance)

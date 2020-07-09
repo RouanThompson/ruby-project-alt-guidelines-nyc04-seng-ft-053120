@@ -100,21 +100,21 @@ class User < ActiveRecord::Base
         choice = prompt.select("Choose a No. of the review you want to modify", num)
         user_reviews[choice -= 1] 
 
-        edit_or_delete = prompt.select("Do want to Edit or Delete this review?", %w(edit delete))
+        edit_or_delete = prompt.select("Do want to Edit or Delete this review?", %w(Edit Delete))
 
-        if edit_or_delete == "delete"
+        if edit_or_delete == "Delete"
             delete_review(user_reviews[choice])
             my_reviews(interface)
         end
 
         input = prompt.collect do
-            key(:attribute).select("What part of this review do you want to edit?", %w(comment rating))
+            key(:attribute).select("What part of this review do you want to edit?", %w(Comment Rating))
             key(:user_changes).ask("Enter your new respose:")
         end
 
-        if input[:attribute] == "comment"
+        if input[:attribute] == "Comment"
             user_reviews[choice].update(comment: input[:user_changes])
-        elsif input[:attribute] == "rating" 
+        elsif input[:attribute] == "Rating" 
             user_reviews[choice].update(rating: input[:user_changes])
         end
     end
@@ -148,8 +148,8 @@ class User < ActiveRecord::Base
 
     def back_to_main(interface)
         prompt = TTY::Prompt.new
-        response = prompt.select("Would you like to make a review or go back to main menue?", %w(review menu))
-        if response == "menu"
+        response = prompt.select("Would you like to make a review or go back to main menue?", %w(Review Menu))
+        if response == "Menu"
             return interface.main_menu
         else
             return make_review(interface)
