@@ -81,11 +81,11 @@ class User < ActiveRecord::Base
             ).id
     end
 
-    def delete_review(user_review)
+    def delete_review(user_review, interface)
         user_review.destroy
         puts " "
         puts "Your review is lost to the ether...".colorize(:color => :light_yellow, :background => :red)
-        my_reviews 
+        my_reviews(interface)
     end   
     
     def edit(user_reviews, num, interface)
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
         edit_or_delete = prompt.select("Do want to Edit or Delete this review?", %w(Edit Delete))
 
         if edit_or_delete == "Delete"
-            delete_review(user_reviews[choice])
+            delete_review(user_reviews[choice], interface)
             my_reviews(interface)
         end
 
