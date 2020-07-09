@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
         user_review.destroy
         puts " "
         puts "Your review is lost to the ether...".colorize(:color => :light_yellow, :background => :red)
+        my_reviews 
     end   
     
     def edit(user_reviews, num, interface)
@@ -92,9 +93,9 @@ class User < ActiveRecord::Base
         choice = prompt.select("Choose a No. of the review you want to modify", num)
         user_reviews[choice -= 1] 
 
-        edit_or_delete = prompt.select("Do want to Edit or Delete this review?", %w(edit delete))
+        edit_or_delete = prompt.select("Do want to Edit or Delete this review?", %w(Edit Delete))
 
-        if edit_or_delete == "delete"
+        if edit_or_delete == "Delete"
             delete_review(user_reviews[choice])
             my_reviews(interface)
         end
@@ -116,6 +117,8 @@ class User < ActiveRecord::Base
 
     def my_reviews(interface)
         prompt = TTY::Prompt.new
+
+        #if we change to class methods, change self.id 
         user_reviews = User.find_by(id: self.id).reviews
         if user_reviews == []
             puts "You have no reviews, how sad 🙁".colorize(:color => :cyan, :background => :default)
@@ -145,8 +148,8 @@ class User < ActiveRecord::Base
 
     def back_to_main(interface)
         prompt = TTY::Prompt.new
-        response = prompt.select("Would you like to make a review or go back to main menue?", %w(review menu))
-        if response == "menu"
+        response = prompt.select("Would you like to make a review or go back to main menue?", %w(Review Menu))
+        if response == "Menu"
             return interface.main_menu
         else
             return make_review(interface)
