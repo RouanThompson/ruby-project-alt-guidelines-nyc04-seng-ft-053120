@@ -24,8 +24,9 @@ class Interface
     def choose_login_or_register
         puts " "
         prompt.select("Log in or register?") do |menu|
-            menu.choice "Log In".colorize(:color => :light_blue, :background => :default), -> { User.logging_someone_in }
-            menu.choice "Register".colorize(:color => :light_blue, :background => :default), -> { User.create_new_user }
+            menu.choice "Log In".colorize(:color => :cyan, :background => :default), -> { User.logging_someone_in(self) }
+            menu.choice "Register".colorize(:color => :cyan, :background => :default), -> { User.create_new_user(self) }
+            menu.choice "Logout".colorize(:color => :cyan, :background => :default), -> {self.logout}
         end
     end
 

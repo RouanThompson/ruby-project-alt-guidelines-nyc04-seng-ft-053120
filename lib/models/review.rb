@@ -13,14 +13,14 @@ class Review < ActiveRecord::Base
         if book_instance
             self.get_book_reviews(book_instance, interface_instance)
         else 
-            puts "\nThat book has not been reviewed 🙁".colorize(:color => :light_blue, :background => :default)
-            prompt = TTY::Prompt.new
-            response = prompt.select("Be the first to create a review for it!", %w(Yes No))
-            if response == "Yes"
-                #user.make_review 
-            else 
-                interface_instance.main_menu
-            end
+            puts "\nThat book has not been reviewed 🙁".colorize(:color => :cyan, :background => :default)
+            
+
+            spinner = TTY::Spinner.new("[:spinner] Back to main menu ...".colorize(:color => :light_blue, :background => :light_white), format: :pulse_2)
+            spinner.auto_spin # Automatic animation with default interval
+            sleep(3) # Perform task
+            spinner.stop('Done!'.colorize(:color => :light_blue, :background => :light_white)) # Stop animation
+            interface_instance.main_menu
         end 
     end
 
