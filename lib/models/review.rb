@@ -13,13 +13,12 @@ class Review < ActiveRecord::Base
         if book_instance
             self.get_book_reviews(book_instance, interface_instance)
         else 
-            puts "\nThat book has not been reviewed 🙁".colorize(:color => :cyan, :background => :default)
+            puts "\nThat book has not been reviewed 🙁".colorize(:color => :light_blue, :background => :default)
             
-
-            spinner = TTY::Spinner.new("[:spinner] Back to main menu ...".colorize(:color => :light_blue, :background => :light_white), format: :pulse_2)
+            spinner = TTY::Spinner.new("[:spinner] Back to main menu ...".colorize(:color => :light_green, :background => :light_white), format: :pulse_2)
             spinner.auto_spin # Automatic animation with default interval
             sleep(3) # Perform task
-            spinner.stop('Done!'.colorize(:color => :light_blue, :background => :light_white)) # Stop animation
+            spinner.stop('Done!'.colorize(:color => :light_green, :background => :light_white)) # Stop animation
             interface_instance.main_menu
         end 
     end
@@ -40,7 +39,7 @@ class Review < ActiveRecord::Base
         puts " " 
         reviews_array = Review.all.select {|rev| rev.book_id == book_id }
         values_to_print = reviews_array.map { |rev| 
-                    [rev.user.name, rev.comment, rev.rating]
+                    [rev.user.display_name, rev.comment, rev.rating, rev.recommend]
                     }
         self.reviews_table(values_to_print)
         puts " "
@@ -53,7 +52,7 @@ class Review < ActiveRecord::Base
     end 
    
     def self.reviews_table(array_to_print)
-        reviews_table = TTY::Table.new ['User Name','Comment','Rating'], array_to_print
+        reviews_table = TTY::Table.new ['User','Comment','Rating', 'Recommend'], array_to_print
         puts reviews_table.render(:unicode, alignments: [:center, :center], padding: [0,1,0,1] )
     end 
 

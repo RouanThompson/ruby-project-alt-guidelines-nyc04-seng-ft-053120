@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
         end
         #loops until it does not find a match
         until !User.find_by(display_name: input[:display_name])
-            puts "\nSorry #{input[:name]}, that display name has been taken".colorize(:color => :cyan, :background => :default)
+            puts "\nSorry #{input[:name]}, that display name has been taken".colorize(:color => :light_blue, :background => :default)
             self.try_again(interface)
             input[:display_name] = prompt.ask("Create a display name:")
         end
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
         if found_user = User.find_by(display_name: display_name)
             found_user
         else
-            puts "\nDisplay name does not exist".colorize(:color => :cyan, :background => :default)
+            puts "\nDisplay name does not exist".colorize(:color => :light_blue, :background => :default)
             interface.choose_login_or_register
         end
     end
@@ -135,8 +135,8 @@ class User < ActiveRecord::Base
 
         print_table(array_to_print)
         answer = prompt.select("What would you like to do?") do |menu|
-            menu.choice "Edit".colorize(:color => :cyan, :background => :default), -> {edit(user_reviews, num, interface)}
-            menu.choice "Main menu".colorize(:color => :cyan, :background => :default), -> {interface.main_menu}
+            menu.choice "Edit".colorize(:color => :light_blue, :background => :default), -> {edit(user_reviews, num, interface)}
+            menu.choice "Main menu".colorize(:color => :light_blue, :background => :default), -> {interface.main_menu}
         end
     end
 
