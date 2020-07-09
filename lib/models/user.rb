@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
         found_user
     end
 
-    def make_review
+    def make_review(interface)
         prompt = TTY::Prompt.new
         input = prompt.collect do
             puts "\nBook Review"
@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
             book_id: check_if_book_exist(input),
             comment: input[:comment],
             rating: input[:rating])
+        back_to_main(interface)
     end
 
     def check_if_book_exist(input)
@@ -94,7 +95,7 @@ class User < ActiveRecord::Base
         my_reviews 
     end   
     
-    def edit(user_reviews, num)
+    def edit(user_reviews, num, interface)
         prompt = TTY::Prompt.new
         choice = prompt.select("Choose a No. of the review you want to modify", num)
         user_reviews[choice -= 1] 
@@ -103,7 +104,7 @@ class User < ActiveRecord::Base
 
         if edit_or_delete == "delete"
             delete_review(user_reviews[choice])
-            my_reviews
+            my_reviews(interface)
         end
 
         input = prompt.collect do
@@ -118,15 +119,14 @@ class User < ActiveRecord::Base
         end
     end
 
-    def my_reviews
+    def my_reviews(interface)
         prompt = TTY::Prompt.new
 
         #if we change to class methods, change self.id 
         user_reviews = User.find_by(id: self.id).reviews
         if user_reviews == []
             puts "You have no reviews, how sad 🙁".colorize(:color => :cyan, :background => :default)
-            
-            # return exit #self.main_menu
+            back_to_main(interface)
         end
         i = 0
         num = []
@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
             array_to_print << ["#{i}", review.book.title, review.book.author, review.book.genre, review.comment, review.rating]
         end
         print_table(array_to_print)
-        edit(user_reviews, num)
+        edit(user_reviews, num, interface)
     end
 
 
@@ -146,4 +146,13 @@ class User < ActiveRecord::Base
         puts reviews_table.render(:unicode, alignments: [:center, :center], padding: [0,1,0,1])
     end
 
+    def back_to_main(interface)
+        prompt = TTY::Prompt.new
+        response = prompt.select("Would you like to make a review or go back to main menue?", %w(review menu))
+        if response == "menu"
+            return interface.main_menu
+        else
+            return make_review(interface)
+        end
+    end
 end
