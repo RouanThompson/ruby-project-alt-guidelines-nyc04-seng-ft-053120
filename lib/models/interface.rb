@@ -1,4 +1,5 @@
 #interacts and gets info/data from user
+#require 'colorized_string'
 class Interface 
     attr_accessor :prompt, :user
     
@@ -24,20 +25,21 @@ class Interface
     def choose_login_or_register
         puts " "
         prompt.select("Log in or register?") do |menu|
-            menu.choice "Log In", -> { User.logging_someone_in }
-            menu.choice "Register", -> { User.create_new_user }
+            menu.choice "Log In".colorize(:color => :cyan, :background => :default), -> { User.logging_someone_in }
+            menu.choice "Register".colorize(:color => :cyan, :background => :default), -> { User.create_new_user }
         end
     end
-
+    #::cyan on :default
+    #puts "This is light blue with red background".colorize(:color => :light_blue, :background => :red)
     def main_menu
         system("clear")
         puts "Welcome to Book Club #{user.name}!"
         puts " "
         answer = prompt.select("What would you like to do?") do |menu|
-            menu.choice "Search for reviews", -> { Review.search_for_reviews(self) }
-            menu.choice "Review a book", -> { user.make_review }
-            menu.choice "View my reviews", -> {user.my_reviews}
-            menu.choice "Log out", -> {logout}
+            menu.choice "Search for reviews".colorize(:color => :cyan, :background => :default), -> { Review.search_for_reviews(self) }
+            menu.choice "Review a book".colorize(:color => :cyan, :background => :default), -> { user.make_review }
+            menu.choice "View my reviews".colorize(:color => :cyan, :background => :default), -> {user.my_reviews}
+            menu.choice "Log out".colorize(:color => :cyan, :background => :default), -> { self.logout }
             #pass in (self)
         end
     end
@@ -77,6 +79,8 @@ ooo+shhhhhhhs:-.----.-/ossyyyhhhhhhhhhhy`
           .odhhhhhhhys+:-`                                     
             /syyso:.                                           
                                                               
-        "
+        ".colorize(:color => :green, :background => :default)
+#:green on :default 
+        #ColorizedString.color_samples 
     end
-end   
+end    

@@ -12,3 +12,5 @@ gem "rake"
 gem 'tty-prompt'
 gem 'tty-table'
 gem 'tty-spinner'
+gem 'colorize'
+#gem 'colorized_string'

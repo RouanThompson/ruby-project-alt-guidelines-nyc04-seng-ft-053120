@@ -12,7 +12,7 @@ class Review < ActiveRecord::Base
         if book_instance
             self.get_book_reviews(book_instance, interface_instance)
         else 
-            puts "\nThat book has not been reviewed 🙁"
+            puts "\nThat book has not been reviewed 🙁".colorize(:color => :cyan, :background => :default)
             prompt = TTY::Prompt.new
             response = prompt.select("Be the first to create a review for it!", %w(Yes No))
             if response == "Yes"
@@ -27,16 +27,16 @@ class Review < ActiveRecord::Base
         book_id = book_instance.id
         prompt = TTY::Prompt.new
         #loading animation
-        spinner = TTY::Spinner.new("[:spinner] Getting reviews ...", format: :pulse_2)
+        spinner = TTY::Spinner.new("[:spinner] Getting reviews ...".colorize(:color => :light_blue, :background => :light_white), format: :pulse_2)
         spinner.auto_spin # Automatic animation with default interval
         sleep(2) # Perform task
-        spinner.stop('Done!') # Stop animation
+        spinner.stop('Done!'.colorize(:color => :light_blue, :background => :light_white)) # Stop animation
        
         puts " "
         puts "These are the reviews for:"
-        puts "Title: \"#{book_instance.title}\""
-        puts "By: #{book_instance.author}"
-        puts " "
+        puts "Title: \"#{book_instance.title}\"".colorize(:color => :default, :background => :light_black )
+        puts "By: #{book_instance.author}".colorize(:color => :default, :background => :light_black )
+        puts " " 
         reviews_array = Review.all.select {|rev| rev.book_id == book_id }
         values_to_print = reviews_array.map { |rev| 
                     [rev.user.name, rev.comment, rev.rating]
